@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anubhav Kumar | Neural Interface</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                        mono: ['Space Mono', 'monospace'],
+                    },
+                    colors: {
+                        primary: 'rgb(var(--color-primary) / <alpha-value>)',
+                        secondary: '#7000ff',
+                        dark: '#050507',
+                        surface: '#0f1115',
+                        glass: 'rgba(20, 24, 28, 0.7)',
+                    },
+                    animation: {
+                        'spin-slow': 'spin 20s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-glow': 'pulse-glow 3s infinite',
+                        'fill-bar': 'fill-bar 1.5s ease-out forwards',
+                        'scroll-left': 'scroll-left 20s linear infinite',
+                        'fadeIn': 'fadeIn 0.5s ease-out forwards',
+                        'shimmer': 'shimmer 2s linear infinite',
+                        'slide-right': 'slide-right 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-1000px 0' },
+                            '100%': { backgroundPosition: '1000px 0' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        'pulse-glow': {
+                            '0%, 100%': { opacity: '1', boxShadow: '0 0 20px rgb(var(--color-primary) / 0.2)' },
+                            '50%': { opacity: '0.7', boxShadow: '0 0 40px rgb(var(--color-primary) / 0.5)' },
+                        },
+                        'fill-bar': {
+                            '0%': { width: '0%' },
+                        },
+                        'scroll-left': {
+                            '0%': { transform: 'translateX(100%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        },
+                        'slide-right': {
+                            '0%': { opacity: '0', transform: 'translateX(-30px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            /* Default Cyan: 0, 229, 255 */
+            --color-primary: 0 229 255;
+        }
+
+        body {
+            background-color: #050507;
+            color: white;
+            overflow: hidden;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .glass-panel {
+            background: rgba(15, 17, 21, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
+        }
+        .grid-bg {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgb(var(--color-primary) / 0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgb(var(--color-primary) / 0.03) 1px, transparent 1px);
+        }
+
+        /* Skeleton Shimmer Gradient */
+        .skeleton-shimmer {
+            background: linear-gradient(to right, rgba(255,255,255,0.02) 8%, rgba(255,255,255,0.07) 18%, rgba(255,255,255,0.02) 33%);
+            background-size: 2000px 100%;
+            animation: shimmer 2s linear infinite;
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+        }
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #050507;
+        }
+        .glitch::before {
+            left: 2px;
+            text-shadow: -1px 0 rgb(var(--color-primary));
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+        .glitch::after {
+            left: -2px;
+            text-shadow: -1px 0 #7000ff;
+            clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim 2.5s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim {
+            0% { clip: rect(11px, 9999px, 83px, 0); }
+            20% { clip: rect(96px, 9999px, 8px, 0); }
+            40% { clip: rect(3px, 9999px, 98px, 0); }
+            60% { clip: rect(48px, 9999px, 63px, 0); }
+            80% { clip: rect(31px, 9999px, 32px, 0); }
+            100% { clip: rect(72px, 9999px, 11px, 0); }
+        }
+        @keyframes glitch-anim-2 {
+            0% { clip: rect(69px, 9999px, 19px, 0); }
+            20% { clip: rect(7px, 9999px, 93px, 0); }
+            40% { clip: rect(40px, 9999px, 16px, 0); }
+            60% { clip: rect(98px, 9999px, 21px, 0); }
+            80% { clip: rect(18px, 9999px, 56px, 0); }
+            100% { clip: rect(54px, 9999px, 35px, 0); }
+        }
+    </style>
+    <!-- Polyfill for process to prevent runtime crashes in some libraries -->
+    <script>
+      window.process = window.process || { env: {} };
+      
+      // Global Error Handler for debugging on GitHub Pages
+      window.addEventListener('error', function(e) {
+         if(document.body) {
+             const errorDiv = document.createElement('div');
+             errorDiv.style.cssText = 'position:fixed; top:0; left:0; width:100%; background:rgba(0,0,0,0.9); color:red; padding:20px; z-index:9999; font-family:monospace; border-bottom: 2px solid red;';
+             errorDiv.innerHTML = '<strong>RUNTIME ERROR:</strong><br/>' + e.message + '<br/><br/><em>Check console for details.</em>';
+             document.body.appendChild(errorDiv);
+         }
+      });
+    </script>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.37.0",
+    "recharts": "https://esm.sh/recharts@^3.6.0",
+    "vite": "https://esm.sh/vite@^7.3.1",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2"
+  }
+}
+</script>
+</head>
+<body>
+    <div id="root"></div>
+    <!-- Use relative path ./index.tsx to work on GitHub Pages subdirectories -->
+    <script type="module" src="./index.tsx"></script>
+</body>
+</html>

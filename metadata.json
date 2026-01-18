@@ -1,0 +1,7 @@
+{
+  "name": "Anubhav Kumar - Neural Interface Portfolio",
+  "description": "A high-fidelity, interactive portfolio dashboard visualizing Anubhav Kumar's resume, bridging Machine Learning and Frontend Engineering.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
